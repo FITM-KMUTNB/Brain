@@ -3,7 +3,7 @@
 Brain Project is a toolbox for Brain like text representing knowledge using Co-Occurence graph, aiming to provide all-in-one libray features and utilities for Brain like knowledge base on Python Language.
 This project won't be successful without contributions from the community, especially the current and past key contributors:
 
-- Hurwig Unger [`@Memphisto`]
+- Hurwig Unger [`@Memphisto`](https://github.com/drkubik)
 - Mario Kubik [`@DrKubik`](https://github.com/drkubik)
 - Supaporn Simchareon [`@FonITna`](https://github.com/fonitna)
 - Anirach Mingkhwan [`@Anirach`](https://github.com/Anirach)
