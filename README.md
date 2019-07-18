@@ -20,7 +20,7 @@ The code for this extension is available on github at: https://github.com/FITM-K
 
 - :smile: Star this project on GitHub and Visual Studio Marketplace
 - :blush: Leave a comment
-- :relaxed: [Spare me some coffee via Paypal](https://www.paypal.me/JamesJQYu)
+- :relaxed: [Spare me some coffee ]
 
 ## License
 
