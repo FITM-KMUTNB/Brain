@@ -168,7 +168,7 @@ canadian archive|NN
 bowman|NP w|NP conical cornea|NN treatment|NN operation|NN
 hosp rep|NN j|NP r|NP ophthalmic|NP hosp|NP
 horner|NP jf|NP behandlung|NP des|NP
-monatsblätter für|NN
+monatsblï¿½tter fï¿½r|NN
 kalt|NP e|NP report panas|NP p|NP translate pearson|NP r|NP
 keratoconus|NN contact|NN len|NN
 bull|NP med pmid|NN

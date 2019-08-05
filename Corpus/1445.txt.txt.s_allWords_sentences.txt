@@ -235,7 +235,7 @@ pneumonia|NN height|NN case|NN remedy|NN purge bad dyspnoea|NN urine|NN thin acr
 report result|NN surgical drainage|NN
 1138-1204 ad|NN observe basic symptom|NN occur pneumonia|NN lack follow acute fever|NN stick pain|NN side|NN short rapid breath|NN serrate pulse|NN cough|NN
 clinical description|NN quite similar found modern textbook|NN reflect extent|NN medical knowledge|NN middle age|NN century|NN
-bacteria|NN seen airway|NN individual|NN dy pneumonia|NN edwin|NP initial work|NN identify common bacterial cause|NN pneumoniae|NN pneumoniae|NN perform carl|NP albert|NP fränkel|NP respectively
+bacteria|NN seen airway|NN individual|NN dy pneumonia|NN edwin|NP initial work|NN identify common bacterial cause|NN pneumoniae|NN pneumoniae|NN perform carl|NP albert|NP frï¿½nkel|NP respectively
 initial work|NN introduce gram|NN stain|NN fundamental laboratory|NN test|NN use identify categorize bacteria|NN
 christian gram|NN paper|NN describe procedure|NN help differentiate different bacteria|NN show pneumonia|NN cause microorganism|NN sir|NP william|NP known father|NN modern medicine|NN appreciate morbidity|NN mortality|NN pneumonia|NN describe captain|NN men|NN death|NN
 key development|NN improve outcome|NN pneumonia|NN
@@ -273,12 +273,12 @@ hippocrate|NN acute disease|NN link|NN
 maimonide musa|NP moshe|NP
 klebs|NP e|NP
 zur|NN der|NP pathogenen|NP
-friedländer|NP c|NP
+friedlï¿½nder|NP c|NP
 die der|NP acuten pneumonie|NN
-die genuine pneumonie|NN des|NP für|NP innere|NP
+die genuine pneumonie|NN des|NP fï¿½r|NP innere|NP
 congress|NN april|NP
 gram|NN c|NP
-die der|NP schizomyceten trocken-präparaten|NN
+die der|NP schizomyceten trocken-prï¿½paraten|NN
 med march|NP
 adams|NP wg|NP ka|NP sl|NP et|NP al|NP
 decline|NN childhood|NN type|NN disease|NN hib vaccine|NN era|NN

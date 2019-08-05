@@ -283,7 +283,7 @@ driver|NN david|NP serreze|NP michael|NP w|NP
 salter|NP h|NP
 sensory neuron|NN control|NN
 cell|NN stress|NN inflammation|NN diabete|NN
-lindström|NP j|NP p|NP m|NP s|NP j|NP k|NP h|NP p|NP s|NP m|NP mannelin m|NN m|NP j|NP valle|NP t|NP m|NP j|NP
+lindstrï¿½m|NP j|NP p|NP m|NP s|NP j|NP k|NP h|NP p|NP s|NP m|NP mannelin m|NN m|NP j|NP valle|NP t|NP m|NP j|NP
 sustain reduction|NN incidence|NN type|NN diabete|NN lifestyle|NN intervention|NN follow-up|NN finnish diabete|NN prevention|NN study|NN
 w|NP e|NP fowler|NP s|NP r|NP j|NP walker|NP e|NP nathan|NP d|NP
 reduction|NN incidence|NN type|NN diabete|NN lifestyle|NN intervention|NN metformin|NN

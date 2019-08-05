@@ -44,7 +44,7 @@ amastigote|NN multiply binary fission|NN differentiate release circulation|NN bl
 trypomastigote|NN infect cell|NN variety|NN biological tissue|NN transform intracellular amastigote|NN new infection|NN site|NN
 clinical manifestation|NN cell|NN death|NN target|NN tissue|NN occur infective cycle|NN
 example|NN show pathologist|NN dr|NP
-fritz|NP köberle medical school|NN university|NN paulo|NP ribeiro|NP brazil|NP intracellular amastigote|NN destroy intramural neuron|NN autonomic nervous system|NN intestine|NN heart|NN lead megaintestine|NN heart|NN respectively
+fritz|NP kï¿½berle medical school|NN university|NN paulo|NP ribeiro|NP brazil|NP intracellular amastigote|NN destroy intramural neuron|NN autonomic nervous system|NN intestine|NN heart|NN lead megaintestine|NN heart|NN respectively
 bloodstream|NN replicate african trypanosome|NN
 resume parasite|NN enter cell|NN ingest vector|NN
 kiss|NN bug|NN become infect feed human animal|NN blood|NN contain circulate parasite|NN

@@ -91,7 +91,7 @@ member|NN family|NN dy member|NN infect lose health|NN slowly
 people|NN believe cause original victim|NN drain life|NN family|NN member|NN
 furthermore people|NN tb|NN exhibit symptom|NN similar people|NN consider vampire|NN trait|NN
 people|NN tb|NN symptom|NN red swollen eye|NN create sensitivity|NN bright light|NN pale skin|NN cough|NN blood|NN suggest idea|NN way|NN afflict replenish loss|NN blood|NN suck blood|NN folk|NN belief|NN attribute force nightly attend fairy|NN revel victim|NN wast ow lack|NN rest|NN belief|NN commonest strong connection|NN seen fairy|NN dead similarly commonly attribute victim|NN hagriddenbe transform horse|NN witche|NN hag|NN travel nightly meet|NN result lack|NN rest|NN establish pulmonary form|NN associate tubercle|NN dr|NP richard|NP morton|NP due variety|NN symptom|NN tb|NN identify single disease|NN name tuberculosis|NN j|NP
-schönlein year|NN dr|NP
+schï¿½nlein year|NN dr|NP
 john|NP croghan owner|NN mammoth cave|NN brought number|NN tuberculosis|NN sufferer|NN cave|NN hope|NN cure disease|NN constant temperature|NN purity|NN cave|NN air|NN dy year|NN tb|NN sanatorium|NN open
 owsko|NP poland|NP hermann|NP dr|NP
 robert|NP koch|NP discover tuberculosis|NN bacilly|NN
@@ -256,7 +256,7 @@ richard|NP morton|NP
 med hist|NN
 zur der|NP impetigines|NP
 aus einer|NN den|NN
-müllers|NP archiv|NP anatomie|NP und|NP wissenschaftliche|NP page|NN
+mï¿½llers|NP archiv|NP anatomie|NP und|NP wissenschaftliche|NP page|NN
 kentucky|NP mammoth|NP cave|NP long history|NN
 cnn|NP february|NP
 key|NN sanatoria|NN
