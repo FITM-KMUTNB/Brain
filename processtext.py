@@ -4,9 +4,11 @@
 # BrainLink = {'man-woman': 3, 'man-baby': 1, 'man-year': 1}
 import glob
 import os
+import re
 
 MyBrain = dict()
 BrainLink = dict()
+xcount = 0
 
 # Main function process file in directoty
 
@@ -15,15 +17,21 @@ def main():
     listfile("/Users/anirachmcpro/Desktop/Brain/Corpus")
     print("="*20, 'Summaries', "="*20)
     print(MyBrain)
-    print(BrainLink)
+   # print(BrainLink)
     print("="*20, 'Summaries', "="*20)
     print("The size of is", MyBrain.__sizeof__(),
           'with :', len(MyBrain), 'words')
     print("The size of is", BrainLink.__sizeof__(),
           'with :', len(BrainLink), 'links')
-
+    print('Top keyword is ', max(MyBrain, key=MyBrain.get),
+          'with the value ', max(MyBrain.values()))
+    print('Top keyword is ', max(BrainLink, key=BrainLink.get),
+          'with the value ', max(BrainLink.values()))
+    print(xcount)
 
 # List all the text file in the directory
+
+
 def listfile(fstr):
     os.chdir(fstr)
     numfile = 0
@@ -36,10 +44,16 @@ def listfile(fstr):
 
 # Open each file and process line by line
 def listline(fname):
+    global xcount
     c_file = open(fname, 'r')
     # Read all the lines from the file.
     for line in c_file:
-        processline(line)
+        # remove |NN and |NP
+        nline = line.replace("|NN", "")
+        pline = nline.replace("|NP", "")
+        if 'information' in pline:
+            xcount += 1
+        processline(pline)
     c_file.close()
 
 
@@ -48,6 +62,8 @@ def processline(w_line):
     global MyBrain
     global BrainLink
     wordlists = w_line.split()
+    # remove duplicate words
+    wordlists = list(dict.fromkeys(wordlists))
     # count word frequencies
     for word in wordlists:
         count = wordlists.count(word)
@@ -62,7 +78,9 @@ def processline(w_line):
         for j in range(i, len(wordlists)):
             if j+1 == len(wordlists):
                 break
-            word_pair = wordlists[i]+'-' + wordlists[j+1]
+            if wordlists[i] == wordlists[j+1]:
+                continue
+            word_pair = wordlists[i]+'|' + wordlists[j+1]
             if link_exist(word_pair):
                 BrainLink[word_pair] += count
             else:
@@ -71,7 +89,7 @@ def processline(w_line):
 
 def link_exist(wordlink):
     global BrainLink
-    wlist = wordlink.split('-')
+    wlist = wordlink.split('|')
     wlrev = wlist[1]+wlist[0]
     if wordlink in BrainLink.keys():
         return True

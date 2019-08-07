@@ -6,7 +6,8 @@ print(MyBrain.keys())
 if 'man-baby' in BrainLink:
     print("The size of is", MyBrain.__sizeof__(),
           'with :', len(MyBrain), 'words')
-print(max(MyBrain.values()))
+print(max('Top keyword is ', MyBrain, key=MyBrain.get),
+      'with the value ', max(MyBrain.values()))
 
 
 inputStr = "pynativepynvepynative"
