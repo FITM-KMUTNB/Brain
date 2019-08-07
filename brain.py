@@ -4,7 +4,8 @@ print(MyBrain.items())
 print(MyBrain.values())
 print(MyBrain.keys())
 if 'man-baby' in BrainLink:
-    print(MyBrain.__sizeof__())
+    print("The size of is", MyBrain.__sizeof__(),
+          'with :', len(MyBrain), 'words')
 print(max(MyBrain.values()))
 
 
