@@ -6,9 +6,13 @@ print(MyBrain.keys())
 if 'man-baby' in BrainLink:
     print("The size of is", MyBrain.__sizeof__(),
           'with :', len(MyBrain), 'words')
-print(max('Top keyword is ', MyBrain, key=MyBrain.get),
+print('Top keyword is ', max(MyBrain, key=MyBrain.get),
       'with the value ', max(MyBrain.values()))
 
+wordlists = ['year', 'ear', 'fear', 'earear']
+# for word in wordlists:
+count = wordlists.count('ear')
+print('ear : ', count)
 
 inputStr = "pynativepynvepynative"
 countDict = dict()
