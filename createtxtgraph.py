@@ -14,12 +14,10 @@ ycount = 0
 
 # Main function process file in directoty
 
-"""
 # Neo4j-Driver --> connect via bolt protocol
 driver = GraphDatabase.driver(
     'bolt://localhost:7687', auth=('neo4j', 'tmrs_2019'))
 session = driver.session()
-"""
 
 
 def main():
