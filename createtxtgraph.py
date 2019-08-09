@@ -12,11 +12,17 @@ BrainLink = dict()
 xcount = 0
 ycount = 0
 
-
 # Main function process file in directoty
-def main():
-    starttime = datetime.datetime.now()
 
+"""
+# Neo4j-Driver --> connect via bolt protocol
+driver = GraphDatabase.driver(
+    'bolt://localhost:7687', auth=('neo4j', 'tmrs_2019'))
+session = driver.session()
+"""
+
+
+def main():
     listfile("/Users/anirachmcpro/Desktop/Brain/Corpus")
     # Calculate dice
     for wordpair in BrainLink:
@@ -38,11 +44,16 @@ def main():
     print(xcount)
     print(ycount)
 
-    finishtime = datetime.datetime.now()
-    print("Start time : ")
-    print(starttime.strftime("%Y-%m-%d %H:%M:%S"))
-    print("Finish time : ")
-    print(finishtime.strftime("%Y-%m-%d %H:%M:%S"))
+    now = datetime.datetime.now()
+    print("Current date and time : ")
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
+
+    # creategraph()
+
+    #now = datetime.datetime.now()
+    #print("Current date and time : ")
+    #print(now.strftime("%Y-%m-%d %H:%M:%S"))
+    # driver.close()
 
 
 # List all the text file in the directory
@@ -121,6 +132,29 @@ def caldice(wordlink, coocvalue):
     wordlist = wordlink.split('|')
     dicevalue = 2*coocvalue / MyBrain[wordlist[0]] + MyBrain[wordlist[1]]
     return dicevalue
+
+
+# Neo4j - Create graph database
+
+def creategraph():
+    for word in MyBrain:
+        createNode({'name': word, 'occur': MyBrain[word]})
+    for word_pair in BrainLink:
+        words = word_pair.split('|')
+        createRelation(words[0], words[1], {
+                       'count': BrainLink[word_pair], 'dice': 0.5})
+
+
+def createNode(props):
+    Label = 'SINGLE_NODE'
+    return session.run("CREATE (a:"+Label+" {props}) "
+                       "RETURN id(a)",  {'props': props}).single().value()
+
+
+def createRelation(n1, n2, props):
+    Label = 'SINGLE_NODE'
+    return session.run("MATCH (a:"+Label+"),(b:"+Label+") WHERE a.name = {n1} AND b.name = {n2} "
+                       "CREATE (a)-[rel:IS_CONNECTED {props}]->(b) RETURN rel",  {'n1': n1, 'n2': n2, 'props': props}).single().value()
 
 
 # Call main function.
