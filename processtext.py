@@ -4,7 +4,8 @@
 # BrainLink = {'man-woman': 3, 'man-baby': 1, 'man-year': 1}
 import glob
 import os
-import re
+import datetime
+from neo4j import GraphDatabase  # pip install neo4j
 
 MyBrain = dict()
 BrainLink = dict()
@@ -14,12 +15,19 @@ ycount = 0
 
 # Main function process file in directoty
 
+"""
+# Neo4j-Driver --> connect via bolt protocol
+driver = GraphDatabase.driver(
+    'bolt://localhost:7687', auth=('neo4j', 'tmrs_2019'))
+session = driver.session()
+"""
+
 
 def main():
     listfile("/Users/anirachmcpro/Desktop/Brain/Corpus")
     print("="*20, 'Summaries', "="*20)
    # print(MyBrain)
-    print(BrainLink)
+   # print(BrainLink)
     print("="*20, 'Summaries', "="*20)
     print("The size of is", MyBrain.__sizeof__(),
           'with :', len(MyBrain), 'words')
@@ -34,9 +42,19 @@ def main():
     print(xcount)
     print(ycount)
 
+    now = datetime.datetime.now()
+    print("Current date and time : ")
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
+
+    # creategraph()
+
+    #now = datetime.datetime.now()
+    #print("Current date and time : ")
+    #print(now.strftime("%Y-%m-%d %H:%M:%S"))
+    # driver.close()
+
+
 # List all the text file in the directory
-
-
 def listfile(fstr):
     os.chdir(fstr)
     numfile = 0
@@ -95,44 +113,46 @@ def processline(w_line):
             else:
                 word_pair = wordlists[j+1]+'|' + wordlists[i]
 
-            if link_exist(word_pair):
+            if word_pair in BrainLink:
                 BrainLink[word_pair] += 1
             else:
                 BrainLink[word_pair] = 1
 
 
-def link_exist(wordlink):
-    global BrainLink
-    wlist = wordlink.split('|')
-    wlrev = wlist[1]+wlist[0]
-    if wordlink in BrainLink.keys():
-        return True
-    elif wlrev in BrainLink.keys():
-        return True
-    else:
-        return False
-
 # calculate Dice-coefficien using formular
 # 2*co-occurences count / count of word a + count of word b
-
-
 def caldice(wordlink, coocvalue):
     global MyBrain
     global BrainLink
     global BrainLinkDice
 
+    wordlist = wordlink.split('|')
+    dicevalue = 2*coocvalue / MyBrain[wordlist[0]] + MyBrain[wordlist[1]]
+    return dicevalue
     pass
 
 
 # Neo4j - Create graph database
-def create_node():
-    global MyBrain
-    pass
+
+def creategraph():
+    for word in MyBrain:
+        createNode({'name': word, 'occur': MyBrain[word]})
+    for word_pair in BrainLink:
+        words = word_pair.split('|')
+        createRelation(words[0], words[1], {
+                       'count': BrainLink[word_pair], 'dice': 0.5})
 
 
-def create_link():
-    global BrainLink
-    pass
+def createNode(props):
+    Label = 'SINGLE_NODE'
+    return session.run("CREATE (a:"+Label+" {props}) "
+                       "RETURN id(a)",  {'props': props}).single().value()
+
+
+def createRelation(n1, n2, props):
+    Label = 'SINGLE_NODE'
+    return session.run("MATCH (a:"+Label+"),(b:"+Label+") WHERE a.name = {n1} AND b.name = {n2} "
+                       "CREATE (a)-[rel:IS_CONNECTED {props}]->(b) RETURN rel",  {'n1': n1, 'n2': n2, 'props': props}).single().value()
 
 
 # Call the main function.
