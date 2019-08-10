@@ -2,6 +2,8 @@
 # all of the .txt file.
 # MyBrain = {'man': 3, 'woman': 4, 'year': 1, 'baby': 2}
 # BrainLink = {'man-woman': [3,3], 'man-baby': [1,4], 'man-year': [1,2}
+import networkx as nx
+import matplotlib.pyplot as plt
 import glob
 import os
 import datetime
@@ -9,6 +11,7 @@ from neo4j import GraphDatabase  # pip install neo4j
 
 MyBrain = dict()
 BrainLink = dict()
+BrainGraph = nx.Graph()
 xcount = 0
 ycount = 0
 
@@ -37,6 +40,8 @@ def main():
     print('lyme value: ', MyBrain['lyme'])
     print(xcount)
     print(ycount)
+
+    creategraph()
 
     finishtime = datetime.datetime.now()
     print("Start time : ")
@@ -121,6 +126,22 @@ def caldice(wordlink, coocvalue):
     wordlist = wordlink.split('|')
     dicevalue = 2*coocvalue / MyBrain[wordlist[0]] + MyBrain[wordlist[1]]
     return dicevalue
+
+
+def creategraph():
+    global MyBrain
+    global BrainLink
+    global BrainGraph
+    edgecount = 0
+    nodecount = 0
+    for node in MyBrain:
+        pass
+    for wordlink in BrainLink:
+        wordlist = wordlink.split('|')
+        edgecount += 1
+        BrainGraph.add_edge(wordlist[0], wordlist[1],
+                            weight=BrainLink[wordlink][0], )
+    print('creaate :', edgecount, ' links')
 
 
 # Call main function.
