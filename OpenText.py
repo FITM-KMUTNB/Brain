@@ -4,9 +4,12 @@
 # BrainLink = {'man-woman': 3, 'man-baby': 1, 'man-year': 1}
 import glob
 import os
+import networkx as nx
 
 MyBrain = dict()
 BrainLink = dict()
+BrainGraph = nx.Graph()
+
 
 # Main function process file in directoty
 
@@ -16,6 +19,8 @@ def main():
     print("="*20, 'Summaries', "="*20)
     print(MyBrain)
     print(BrainLink)
+    creategraph()
+    list(BrainGraph)
 
 
 # List all the text file in the directory
@@ -76,15 +81,25 @@ def link_exist(wordlink):
         return False
 
 
-# Neo4j - Create graph database
-def create_node():
+def creategraph():
     global MyBrain
-    pass
-
-
-def create_link():
     global BrainLink
-    pass
+    global BrainGraph
+    edgecount = 0
+    nodecount = 0
+    for wnode in MyBrain:
+        nodecount += 1
+        BrainGraph.add_node(wnode, size=MyBrain[wnode])
+    print('create :', nodecount, ' nodes')
+
+    for wordlink in BrainLink:
+        wordlist = wordlink.split('-')
+        print(wordlist)
+        print(BrainLink[wordlink])
+        edgecount += 1
+        BrainGraph.add_edge(wordlist[0], wordlist[1],
+                            weight=BrainLink[wordlink])
+    print('creaate :', edgecount, ' links')
 
 
 # Call the main function.

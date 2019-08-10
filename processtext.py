@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import glob
 import os
 import datetime
-from neo4j import GraphDatabase  # pip install neo4j
 
 MyBrain = dict()
 BrainLink = dict()
@@ -43,11 +42,18 @@ def main():
 
     creategraph()
 
+    # print(BrainGraph.degree())
+    # print(BrainGraph.degree())
+    print('Create Graph:', BrainGraph.number_of_nodes(),
+          'nodes and ', BrainGraph.number_of_edges(), ' links')
+
     finishtime = datetime.datetime.now()
     print("Start time : ")
     print(starttime.strftime("%Y-%m-%d %H:%M:%S"))
     print("Finish time : ")
     print(finishtime.strftime("%Y-%m-%d %H:%M:%S"))
+    fh = open("test.adjlist", 'wb')
+    nx.write_multiline_adjlist(BrainGraph, fh)
 
 
 # List all the text file in the directory
@@ -132,16 +138,14 @@ def creategraph():
     global MyBrain
     global BrainLink
     global BrainGraph
-    edgecount = 0
-    nodecount = 0
-    for node in MyBrain:
-        pass
+
+    for wnode in MyBrain:
+        BrainGraph.add_node(wnode, feq=MyBrain[wnode])
+
     for wordlink in BrainLink:
         wordlist = wordlink.split('|')
-        edgecount += 1
         BrainGraph.add_edge(wordlist[0], wordlist[1],
-                            weight=BrainLink[wordlink][0], )
-    print('creaate :', edgecount, ' links')
+                            weight=BrainLink[wordlink][0], dice=BrainLink[wordlink][0])
 
 
 # Call main function.

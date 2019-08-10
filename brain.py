@@ -8,15 +8,3 @@ if 'man-baby' in BrainLink:
           'with :', len(MyBrain), 'words')
 print('Top keyword is ', max(MyBrain, key=MyBrain.get),
       'with the value ', max(MyBrain.values()))
-
-wordlists = ['year', 'ear', 'fear', 'earear']
-# for word in wordlists:
-count = wordlists.count('ear')
-print('ear : ', count)
-
-inputStr = "pynativepynvepynative"
-countDict = dict()
-for char in inputStr:
-    count = inputStr.count(char)
-    countDict[char] = count
-print(countDict)
