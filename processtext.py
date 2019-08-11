@@ -43,18 +43,21 @@ def main():
     creategraph()
 
     # print(BrainGraph.degree())
-    # print(BrainGraph.degree())
+    # print(BrainGraph.edges())
+
     print('Create Graph:', BrainGraph.number_of_nodes(),
           'nodes and ', BrainGraph.number_of_edges(), ' links')
+
+    # Dump edge list to file with '|' delimiter
+    #fh = open("test.edgelist", 'wb')
+    #nx.write_edgelist(BrainGraph, fh, delimiter='|')
+    nx.write_gml(BrainGraph, "test.gml")
 
     finishtime = datetime.datetime.now()
     print("Start time : ")
     print(starttime.strftime("%Y-%m-%d %H:%M:%S"))
     print("Finish time : ")
     print(finishtime.strftime("%Y-%m-%d %H:%M:%S"))
-    fh = open("test.adjlist", 'wb')
-    nx.write_multiline_adjlist(BrainGraph, fh)
-
 
 # List all the text file in the directory
 
@@ -145,7 +148,7 @@ def creategraph():
     for wordlink in BrainLink:
         wordlist = wordlink.split('|')
         BrainGraph.add_edge(wordlist[0], wordlist[1],
-                            weight=BrainLink[wordlink][0], dice=BrainLink[wordlink][0])
+                            weight=BrainLink[wordlink][0], dice=BrainLink[wordlink][1])
 
 
 # Call main function.
