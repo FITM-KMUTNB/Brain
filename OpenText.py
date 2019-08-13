@@ -8,44 +8,64 @@ import matplotlib.pyplot as plt
 MyBrain = dict()
 BrainLink = dict()
 BrainGraph = nx.Graph()
+LargestGraph = nx.Graph()
 xcount = 0
 ycount = 0
 
 
 # Main function process file in directoty
 def main():
+    global LargestGraph
     starttime = datetime.datetime.now()
     print("="*20, 'Begin', "="*20)
-    listfile("/Users/anirachmcpro/Desktop/Brain")
+    listfile("/Users/anirachmcpro/Desktop/Brain/testcentroid")
     # Put properties dice and cost to BrainLink
     for wordpair in BrainLink:
         BrainLink[wordpair][1] = caldice(wordpair, BrainLink[wordpair][0])
         BrainLink[wordpair][2] = 1/BrainLink[wordpair][1]
-    print(MyBrain)
-    print(BrainLink)
-    print(BrainGraph)
+    # print(MyBrain)
+    # print(BrainLink)
 
     print("="*20, 'Start create Graph', "="*20)
+    # Create graph
     creategraph()
+
+    # Generate connected components and select the largest:
+    largest_component = max(nx.connected_components(BrainGraph), key=len)
+
+    # Create a subgraph of G consisting only of this component:
+    LargestGraph = BrainGraph.subgraph(largest_component)
+
     findcentroid()
 
     # Dump edge list to file with '|' delimiter
     fh = open("test.edgelist", 'wb')
-    nx.write_edgelist(BrainGraph, fh, delimiter='|')
+    nx.write_edgelist(LargestGraph, fh, delimiter='|')
     # Dump Graph to file.gml
-    nx.write_gml(BrainGraph, "test.gml", stringizer=None)
+    nx.write_gml(LargestGraph, "test.gml", stringizer=None)
 
-    # print time start - finish to calculate time use
+    # print Nodes and Links summary
     print("="*20, 'Summaries', "="*20)
+    print("The size of Keywords-dict is", MyBrain.__sizeof__(),
+          'with :', len(MyBrain), 'words')
+    print("The size of Links-dict is", BrainLink.__sizeof__(),
+          'with :', len(BrainLink), 'links')
+    print('Top Max-keyword is ', max(MyBrain, key=MyBrain.get),
+          'with the value ', max(MyBrain.values()))
+    print('Top Strongest Link is ', max(BrainLink, key=BrainLink.get),
+          'with the value ', max(BrainLink.values()))
+
+    print("="*20, 'Timer', "="*20)
+    # print time start - finish to calculate time use
     finishtime = datetime.datetime.now()
     print("Start time : ")
     print(starttime.strftime("%Y-%m-%d %H:%M:%S"))
     print("Finish time : ")
     print(finishtime.strftime("%Y-%m-%d %H:%M:%S"))
-    print("="*20, 'Summaries', "="*20)
+    print("="*20, 'End', "="*20)
 
     # plot graph
-    nx.draw_networkx(BrainGraph, with_labels=True)
+    nx.draw_networkx(LargestGraph, with_labels=True)
     plt.show()
 
 
@@ -151,19 +171,23 @@ def creategraph():
 
 def findcentroid():
 
-    global BrainGraph
-    global MyBrain
+    global LargestGraph
 
+    final_avg = 999999999.99
+    final_key = ''
     # find node shortest path to all nodes
-    word_allSP = dict(nx.shortest_path_length(BrainGraph, weight='cost'))
+    word_allSP = dict(nx.shortest_path_length(LargestGraph, weight='cost'))
 
-    print(word_allSP['women'])
+    # print(word_allSP)
+    for key in word_allSP:
+        avg_nodeSP = sum(word_allSP[key].values())/(len(word_allSP[key])-1)
+        if final_avg > avg_nodeSP:
+            final_avg = avg_nodeSP
+            final_key = key
+       # print('The mean is : ', key, 'sumvalue= ', sum(
+       #     word_allSP[key].values()), 'Avarage=', avg_nodeSP)
 
-    avg_nodeSP = sum(word_allSP['women'].values())/(len(word_allSP['women'])-1)
-
-    print('this is the mean: ', avg_nodeSP)
-
-    pass
+    print('The centroid is : ', final_key, final_avg)
 
 
 # Call main function.
