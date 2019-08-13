@@ -1,0 +1,10 @@
+man|women|{'weight': 3, 'dice': 0.8571428571428571, 'cost': 1.1666666666666667}
+man|year|{'weight': 1, 'dice': 0.4, 'cost': 2.5}
+man|baby|{'weight': 1, 'dice': 0.4, 'cost': 2.5}
+women|year|{'weight': 1, 'dice': 0.3333333333333333, 'cost': 3.0}
+women|baby|{'weight': 2, 'dice': 0.6666666666666666, 'cost': 1.5}
+women|home|{'weight': 1, 'dice': 0.3333333333333333, 'cost': 3.0}
+year|home|{'weight': 1, 'dice': 0.5, 'cost': 2.0}
+year|dog|{'weight': 1, 'dice': 0.6666666666666666, 'cost': 1.5}
+baby|home|{'weight': 1, 'dice': 0.5, 'cost': 2.0}
+home|dog|{'weight': 1, 'dice': 0.6666666666666666, 'cost': 1.5}

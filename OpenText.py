@@ -1,26 +1,52 @@
-# This program uses the for loop to read
-# all of the .txt file.
-# MyBrain = {'man': 3, 'woman': 4, 'year': 1, 'baby': 2}
-# BrainLink = {'man-woman': 3, 'man-baby': 1, 'man-year': 1}
+# Centroid
 import glob
 import os
+import datetime
 import networkx as nx
+import matplotlib.pyplot as plt
 
 MyBrain = dict()
 BrainLink = dict()
 BrainGraph = nx.Graph()
+xcount = 0
+ycount = 0
 
 
 # Main function process file in directoty
-
-
 def main():
+    starttime = datetime.datetime.now()
+    print("="*20, 'Begin', "="*20)
     listfile("/Users/anirachmcpro/Desktop/Brain")
-    print("="*20, 'Summaries', "="*20)
+    # Put properties dice and cost to BrainLink
+    for wordpair in BrainLink:
+        BrainLink[wordpair][1] = caldice(wordpair, BrainLink[wordpair][0])
+        BrainLink[wordpair][2] = 1/BrainLink[wordpair][1]
     print(MyBrain)
     print(BrainLink)
+    print(BrainGraph)
+
+    print("="*20, 'Start create Graph', "="*20)
     creategraph()
-    list(BrainGraph)
+    findcentroid()
+
+    # Dump edge list to file with '|' delimiter
+    fh = open("test.edgelist", 'wb')
+    nx.write_edgelist(BrainGraph, fh, delimiter='|')
+    # Dump Graph to file.gml
+    nx.write_gml(BrainGraph, "test.gml", stringizer=None)
+
+    # print time start - finish to calculate time use
+    print("="*20, 'Summaries', "="*20)
+    finishtime = datetime.datetime.now()
+    print("Start time : ")
+    print(starttime.strftime("%Y-%m-%d %H:%M:%S"))
+    print("Finish time : ")
+    print(finishtime.strftime("%Y-%m-%d %H:%M:%S"))
+    print("="*20, 'Summaries', "="*20)
+
+    # plot graph
+    nx.draw_networkx(BrainGraph, with_labels=True)
+    plt.show()
 
 
 # List all the text file in the directory
@@ -34,12 +60,19 @@ def listfile(fstr):
         print("-"*20, numfile, "-"*20)
 
 
-# Open each file and process line by line
+# Read lines from file and clean the line
 def listline(fname):
     c_file = open(fname, 'r')
+
     # Read all the lines from the file.
     for line in c_file:
-        processline(line)
+        # remove |NN and |NP
+        nline = line.replace("|NN", "")
+        pline = nline.replace("|NP", "")
+        # print(pline)
+        # process line
+        processline(pline)
+
     c_file.close()
 
 
@@ -47,14 +80,20 @@ def listline(fname):
 def processline(w_line):
     global MyBrain
     global BrainLink
+    global xcount
+    global ycount
     wordlists = w_line.split()
+    # remove duplicate words
+    wordlists = list(dict.fromkeys(wordlists))
+    # count specific words
+    xcount += wordlists.count('disease')
+    ycount += wordlists.count('people')
     # count word frequencies
     for word in wordlists:
-        count = wordlists.count(word)
         if word in MyBrain.keys():
-            MyBrain[word] += count
+            MyBrain[word] += 1
         else:
-            MyBrain[word] = count
+            MyBrain[word] = 1
     # Count word_pairs frequencies
     for i in range(len(wordlists)):
         if i+1 == len(wordlists):
@@ -62,45 +101,70 @@ def processline(w_line):
         for j in range(i, len(wordlists)):
             if j+1 == len(wordlists):
                 break
-            word_pair = wordlists[i]+'-' + wordlists[j+1]
-            if link_exist(word_pair):
-                BrainLink[word_pair] += count
+            if wordlists[i] == wordlists[j+1]:
+                continue
+            # create link pair with the less value word first
+            if wordlists[i] < wordlists[j+1]:
+                word_pair = wordlists[i]+'|' + wordlists[j+1]
             else:
-                BrainLink[word_pair] = count
+                word_pair = wordlists[j+1]+'|' + wordlists[i]
+
+            if word_pair in BrainLink:
+                BrainLink[word_pair][0] += 1
+            else:
+                BrainLink[word_pair] = [1, 0.0, 0.0]
 
 
-def link_exist(wordlink):
+# calculate Dice-coefficien using formular
+# 2*co-occurences count / count of word a + count of word b
+def caldice(wordlink, coocvalue):
+    global MyBrain
     global BrainLink
-    wlist = wordlink.split('-')
-    wlrev = wlist[1]+wlist[0]
-    if wordlink in BrainLink.keys():
-        return True
-    elif wlrev in BrainLink.keys():
-        return True
+
+    wordlist = wordlink.split('|')
+    dicevalue = 2*coocvalue / (MyBrain[wordlist[0]] + MyBrain[wordlist[1]])
+    if dicevalue > 1:
+        return 1
     else:
-        return False
+        return dicevalue
 
 
 def creategraph():
     global MyBrain
     global BrainLink
     global BrainGraph
-    edgecount = 0
-    nodecount = 0
+
     for wnode in MyBrain:
-        nodecount += 1
-        BrainGraph.add_node(wnode, size=MyBrain[wnode])
-    print('create :', nodecount, ' nodes')
+        BrainGraph.add_node(wnode, feq=MyBrain[wnode])
 
     for wordlink in BrainLink:
-        wordlist = wordlink.split('-')
-        print(wordlist)
-        print(BrainLink[wordlink])
-        edgecount += 1
+        wordlist = wordlink.split('|')
         BrainGraph.add_edge(wordlist[0], wordlist[1],
-                            weight=BrainLink[wordlink])
-    print('creaate :', edgecount, ' links')
+                            weight=BrainLink[wordlink][0], dice=BrainLink[wordlink][1], cost=BrainLink[wordlink][2])
 
 
-# Call the main function.
+# for each group
+    # for each member of the group
+        # get the distance of shortest paths to all the other members of the group
+        # sum this distances
+    # find the node with the minimal summed distance > this is the new centroid of the group
+
+def findcentroid():
+
+    global BrainGraph
+    global MyBrain
+
+    # find node shortest path to all nodes
+    word_allSP = dict(nx.shortest_path_length(BrainGraph, weight='cost'))
+
+    print(word_allSP['women'])
+
+    avg_nodeSP = sum(word_allSP['women'].values())/(len(word_allSP['women'])-1)
+
+    print('this is the mean: ', avg_nodeSP)
+
+    pass
+
+
+# Call main function.
 main()

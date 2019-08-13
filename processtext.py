@@ -19,7 +19,7 @@ ycount = 0
 def main():
     starttime = datetime.datetime.now()
 
-    listfile("/Users/anirachmcpro/Desktop/Brain/Corpus")
+    listfile("/Users/anirachmcpro/Desktop/Brain/testcentroid")
     # Calculate dice
     for wordpair in BrainLink:
         BrainLink[wordpair][1] = caldice(wordpair, BrainLink[wordpair][0])
@@ -36,7 +36,7 @@ def main():
     print('Top keyword is ', max(BrainLink, key=BrainLink.get),
           'with the value ', max(BrainLink.values()))
     print('disease value: ', MyBrain['disease'])
-    print('lyme value: ', MyBrain['lyme'])
+    print('people value: ', MyBrain['people'])
     print(xcount)
     print(ycount)
 
@@ -48,10 +48,18 @@ def main():
     print('Create Graph:', BrainGraph.number_of_nodes(),
           'nodes and ', BrainGraph.number_of_edges(), ' links')
 
+    # print(nx.dijkstra_path(BrainGraph, 'disease', 'people'), ' with the lenght of :',
+    #      nx.dijkstra_path_length(BrainGraph, 'people', 'fetal', weight='weight'))
+
+    #print(nx.shortest_path(BrainGraph, source='jump', target='child'))
+    for C in nx.connected_component_subgraphs(BrainGraph):
+        print(nx.average_shortest_path_length(C, weight='weight'))
+    print(BrainGraph.edges['disease', 'people']['weight'])
+
     # Dump edge list to file with '|' delimiter
-    #fh = open("test.edgelist", 'wb')
-    #nx.write_edgelist(BrainGraph, fh, delimiter='|')
-    nx.write_gml(BrainGraph, "test.gml")
+    fh = open("test.edgelist", 'wb')
+    nx.write_edgelist(BrainGraph, fh, delimiter='|')
+    nx.write_gml(BrainGraph, "test.gml", stringizer=None)
 
     finishtime = datetime.datetime.now()
     print("Start time : ")
@@ -81,6 +89,7 @@ def listline(fname):
         # remove |NN and |NP
         nline = line.replace("|NN", "")
         pline = nline.replace("|NP", "")
+        # print(pline)
         # process line
         processline(pline)
 
@@ -98,7 +107,7 @@ def processline(w_line):
     wordlists = list(dict.fromkeys(wordlists))
     # count specific words
     xcount += wordlists.count('disease')
-    ycount += wordlists.count('lyme')
+    ycount += wordlists.count('people')
     # count word frequencies
     for word in wordlists:
         if word in MyBrain.keys():
@@ -133,7 +142,7 @@ def caldice(wordlink, coocvalue):
     global BrainLink
 
     wordlist = wordlink.split('|')
-    dicevalue = 2*coocvalue / MyBrain[wordlist[0]] + MyBrain[wordlist[1]]
+    dicevalue = 2*coocvalue / (MyBrain[wordlist[0]] + MyBrain[wordlist[1]])
     return dicevalue
 
 
@@ -149,6 +158,19 @@ def creategraph():
         wordlist = wordlink.split('|')
         BrainGraph.add_edge(wordlist[0], wordlist[1],
                             weight=BrainLink[wordlink][0], dice=BrainLink[wordlink][1])
+
+
+# for each group
+    # for each member of the group
+        # get the distance of shortest paths to all the other members of the group
+        # sum this distances
+    # find the node with the minimal summed distance > this is the new centroid of the group
+
+def finecentroid():
+
+    global BrainGraph
+
+    pass
 
 
 # Call main function.
