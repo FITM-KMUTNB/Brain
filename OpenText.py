@@ -18,7 +18,7 @@ def main():
     global LargestGraph
     starttime = datetime.datetime.now()
     print("="*20, 'Begin', "="*20)
-    listfile("/Users/anirachmcpro/Desktop/Brain/testcentroid")
+    listfile("/Users/anirachmcpro/Desktop/Brain/data222")
     # Put properties dice and cost to BrainLink
     for wordpair in BrainLink:
         BrainLink[wordpair][1] = caldice(wordpair, BrainLink[wordpair][0])
@@ -178,9 +178,9 @@ def findcentroid():
     # find node shortest path to all nodes
     word_allSP = dict(nx.shortest_path_length(LargestGraph, weight='cost'))
 
-    # print(word_allSP)
+    print(word_allSP['home'], len(word_allSP['home']))
     for key in word_allSP:
-        avg_nodeSP = sum(word_allSP[key].values())/(len(word_allSP[key])-1)
+        avg_nodeSP = sum(word_allSP[key].values())/(len(word_allSP[key]))
         if final_avg > avg_nodeSP:
             final_avg = avg_nodeSP
             final_key = key
