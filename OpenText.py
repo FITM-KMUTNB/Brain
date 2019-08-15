@@ -18,7 +18,7 @@ def main():
     global LargestGraph
     starttime = datetime.datetime.now()
     print("="*20, 'Begin', "="*20)
-    listfile("/Users/anirachmcpro/Desktop/Brain/data222")
+    listfile("/Users/anirachmcpro/Desktop/Brain/D226")
     # Put properties dice and cost to BrainLink
     for wordpair in BrainLink:
         BrainLink[wordpair][1] = caldice(wordpair, BrainLink[wordpair][0])
@@ -149,6 +149,7 @@ def caldice(wordlink, coocvalue):
         return dicevalue
 
 
+# Next_Step Try to considering Teta = values to create only important nodes and links
 def creategraph():
     global MyBrain
     global BrainLink
@@ -178,16 +179,23 @@ def findcentroid():
     # find node shortest path to all nodes
     word_allSP = dict(nx.shortest_path_length(LargestGraph, weight='cost'))
 
-    print(word_allSP['home'], len(word_allSP['home']))
     for key in word_allSP:
         avg_nodeSP = sum(word_allSP[key].values())/(len(word_allSP[key]))
         if final_avg > avg_nodeSP:
             final_avg = avg_nodeSP
             final_key = key
-       # print('The mean is : ', key, 'sumvalue= ', sum(
-       #     word_allSP[key].values()), 'Avarage=', avg_nodeSP)
 
     print('The centroid is : ', final_key, final_avg)
+
+
+# Process raw text file to the noun only (may be nltk needed)
+def processtxtfile():
+    pass
+
+
+# To find each document centroid for referencing
+def document_centroid():
+    pass
 
 
 # Call main function.
