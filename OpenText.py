@@ -36,7 +36,7 @@ def main():
     # Create a subgraph of G consisting only of this component:
     LargestGraph = BrainGraph.subgraph(largest_component)
 
-    findcentroid()
+    # findcentroid()
 
     # Dump edge list to file with '|' delimiter
     fh = open("test.edgelist", 'wb')
@@ -65,8 +65,8 @@ def main():
     print("="*20, 'End', "="*20)
 
     # plot graph
-    nx.draw_networkx(LargestGraph, with_labels=True)
-    plt.show()
+    #nx.draw_networkx(LargestGraph, with_labels=True)
+    # plt.show()
 
 
 # List all the text file in the directory
