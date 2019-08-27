@@ -18,7 +18,7 @@ def main():
     global LargestGraph
     starttime = datetime.datetime.now()
     print("="*20, 'Begin', "="*20)
-    listfile("/Users/anirachmcpro/Desktop/Brain/D226")
+    listfile("/Users/anirachmcpro/Desktop/Brain/data222")
     # Put properties dice and cost to BrainLink
     for wordpair in BrainLink:
         BrainLink[wordpair][1] = caldice(wordpair, BrainLink[wordpair][0])
@@ -54,6 +54,10 @@ def main():
           'with the value ', max(MyBrain.values()))
     print('Top Strongest Link is ', max(BrainLink, key=BrainLink.get),
           'with the value ', max(BrainLink.values()))
+    print('The number of nodes in the MainGraph : ',
+          LargestGraph.number_of_nodes(), ' nodes')
+    print('The number of edges in the MainGraph : ',
+          LargestGraph.number_of_edges(), ' edges')
 
     print("="*20, 'Timer', "="*20)
     # print time start - finish to calculate time use
@@ -63,6 +67,8 @@ def main():
     print("Finish time : ")
     print(finishtime.strftime("%Y-%m-%d %H:%M:%S"))
     print("="*20, 'End', "="*20)
+
+   # print(list(LargestGraph.nodes))
 
     # plot graph
     #nx.draw_networkx(LargestGraph, with_labels=True)
