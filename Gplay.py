@@ -10,7 +10,7 @@ MainGraph = nx.Graph()
 def main():
     starttime = datetime.datetime.now()
     print('Start Read File GML')
-    MainGraph = read_graphfile('Bigplay.gml')
+    MainGraph = read_graphfile('Gplay.gml')
     readtime = datetime.datetime.now()
     print('Start plot Graph')
     PGraph = MainGraph.subgraph(['dog', 'baby', 'women'])
