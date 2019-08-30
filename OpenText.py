@@ -18,7 +18,7 @@ def main():
     global LargestGraph
     starttime = datetime.datetime.now()
     print("="*20, 'Begin', "="*20)
-    listfile("/Users/anirachmcpro/Desktop/Brain/data222")
+    listfile("/Users/anirachmcpro/Desktop/Brain/4file")
     # Put properties dice and cost to BrainLink
     for wordpair in BrainLink:
         BrainLink[wordpair][1] = caldice(wordpair, BrainLink[wordpair][0])
