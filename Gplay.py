@@ -13,7 +13,7 @@ def main():
     MainGraph = read_graphfile('Gplay.gml')
     readtime = datetime.datetime.now()
     print('Start plot Graph')
-    PGraph = MainGraph.subgraph(['dog', 'baby', 'women'])
+    PGraph = MainGraph.subgraph(['dog', 'women'])
     plot_graph(MainGraph)
 
     print(nx.info(MainGraph))
